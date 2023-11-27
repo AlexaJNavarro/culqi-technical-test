@@ -24,6 +24,10 @@ a,
   font-family: Manrope;
 }
 
+.pb-0-important{
+  padding-bottom: 0 !important;
+}
+
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
