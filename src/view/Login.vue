@@ -19,10 +19,20 @@
             <div class="container-login-form-content">
                 <p class="text-center font-bold tracking-normal">Inicia sesión</p>
                 <div class="py-8 font-medium tracking-normal">
-                    <p>Correo electrónico<span>*</span></p>
-                    <el-input class="input" v-model="email" placeholder="Ingresa el correo electrónico"/>
-                    <p class="pt-6">Contraseña<span>*</span></p>
-                    <el-input class="input" v-model="password" placeholder="Ingresa la contraseña" type="password"/>
+                    <p class="font-medium">Correo electrónico<span>*</span></p>
+                    <el-input 
+                        class="input" 
+                        v-model="email" 
+                        placeholder="Ingresa el correo electrónico"
+                        />
+                    <p class="pt-6 font-medium">Contraseña<span>*</span></p>
+                    <el-input
+                        class="input"
+                        v-model="password"
+                        type="password"
+                        placeholder="Ingresa la contraseña"
+                        show-password
+                    />
                 </div>
                 <div class="pb-8 flex items-center font-normal tracking-normal container-login-form-content-alert" v-if="alert">
                     <i class="material-icons">error</i>
