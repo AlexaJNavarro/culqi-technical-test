@@ -1,27 +1,24 @@
 <template>
     <div class="container-table">
         <el-table :data="data" height="250" style="width: 100%">
-            <el-table-column prop="date" label="Date" width="180" />
-            <el-table-column prop="name" label="Name" width="180" />
-            <el-table-column prop="address" label="Address" />
+            <el-table-column prop="nombre" label="Nombre" width="180" />
+            <el-table-column prop="cargo" label="Nombre cargo" width="180" />
+            <el-table-column prop="departamento" label="Departamento" width="180" />
+            <el-table-column prop="oficina" label="Oficina" width="180" />
+            <el-table-column prop="estadoCuenta" label="Cuenta" width="180" />
         </el-table>
         <div class="container-table-pagination grid grid-cols-2 gap-2">
-            <!--
-                page-size = cantidad de registros en la tabla
-                4 = apartir de que numero salen los puntos
-                handleCurrentChange = retorna la paginación
-            -->
             <el-pagination
-                :page-size="value"
+                :page-size="limit"
                 :pager-count="4" 
                 layout="prev, pager, next"
                 :total="total"
-                @current-change="handleCurrentChange"
+                @current-change="handlePagination"
             />
             <div class="flex justify-end">
                 <p>Mostrando 1 a {{ data.length }} de {{ total }} registros</p>
                 <div class="pl-4">
-                    <el-select v-model="value" class="m-2" placeholder="Select" @change="handleSizeChange">
+                    <el-select v-model="limit" class="m-2" placeholder="Select" @change="handleLimit">
                         <el-option
                         v-for="item in options"
                         :key="item.value"
@@ -36,76 +33,55 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
+import { getEmployees } from '../services/employees.services'
 
-//Table
-const total = ref(48)
-const data = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-08',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-06',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-07',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
+const total = ref(0)
+const data = ref([]);
+let limit = ref(5)
+let page = ref(1)
 
-//Pagination
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
-}
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
-}
-
-//Select
-const value = ref(2)
 const options = [
   {
-    value: 2,
-    label: 2,
+    value: 5,
+    label: 5,
   },
   {
-    value: 4,
-    label: 4,
+    value: 10,
+    label: 10,
   },
   {
-    value: 6,
-    label: 6,
-  },
-  {
-    value: 8,
-    label: 8,
+    value: 15,
+    label: 15,
   }
 ]
+
+const handlePagination = (val: number) => {
+  page.value = val;
+  fetchData();
+}
+
+const handleLimit = (val: number) => {
+  limit.value = val;
+  fetchData();
+}
+
+const fetchData = async () => {
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAxMDgxNjY4LCJleHAiOjE3MDEwODUyNjh9.fs8OfwgI-_wWOXp2Oces9KQAQuldWP0ql0KTicdeF_E";
+  try {
+    const response = await getEmployees(token, limit.value, page.value);
+    data.value = response.data.data
+    total.value = response.data.total
+    console.log("data.value  => ", data.value )
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <style scoped>
