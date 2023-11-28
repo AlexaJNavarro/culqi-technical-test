@@ -4,7 +4,28 @@
             <ContentNavigation/>
         </div>
         <div class="container-navigation-right">
-            <div class="container-navigation-right-content flex justify-end px-8">
+            <div class="container-navigation-right-content flex items-center px-8">
+                <div class="container-navigation-right-content-dropdown">
+                    <el-dropdown :hide-on-click="false">
+                        <i class="material-icons deactivate">menu</i>
+                      <template #dropdown>
+                        <el-dropdown-menu>
+                          <el-dropdown-item>
+                            <i class="material-icons">group</i>
+                            <span class="pl-2 font-manrope font-bold active">Empleados</span>
+                          </el-dropdown-item>
+                          <el-dropdown-item>
+                            <i class="material-icons deactivate">work</i>
+                            <span class="pl-2 font-manrope font-bold">Reclutamiento</span>
+                          </el-dropdown-item>
+                          <el-dropdown-item @click="goOut">
+                            <i class="material-icons">logout</i>
+                            <span class="pl-2 font-manrope font-bold active">Salir</span>
+                          </el-dropdown-item>
+                        </el-dropdown-menu>
+                      </template>
+                    </el-dropdown>
+                </div>
                 <div class="flex items-center">
                     <img src="../assets/svg/logoUser.svg">
                     <p class="pl-2">{{ name }}</p>
@@ -18,20 +39,24 @@
         </div>
     </div>
 </template>
-  
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+
+<script lang="ts" setup>
+import { defineProps } from 'vue';
 import ContentNavigation from './ContentNavigation.vue';
-export default defineComponent({
-    name: 'Navigation',
-    components:{
-        ContentNavigation
-    },
-    props: {
-        name: String as PropType<string>,
-    },
+import {removeLocalStorage} from '../services/localStorage.services';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const props = defineProps({
+    name: String,
 });
+
+const goOut = () => {
+    removeLocalStorage()
+    router.push('/login');
+}
+
 </script>
+
 
 <style lang="scss" scoped>
 .container-navigation{
@@ -44,6 +69,10 @@ export default defineComponent({
         &-content{
             height: 96px;
             border-bottom: 1px solid var(--vt-c-light-gray-val);
+            justify-content: end;
+            &-dropdown{
+                display: none;
+            }
         }
         &-body{
             height: calc(100% - 96px);
@@ -57,6 +86,12 @@ export default defineComponent({
         }
         &-right{
             width: 100%;
+            &-content{
+                justify-content: space-between;
+                &-dropdown{
+                    display: block;
+                }
+            }
         }
     }
 

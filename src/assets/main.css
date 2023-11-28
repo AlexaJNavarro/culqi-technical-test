@@ -185,6 +185,11 @@
   color: var(--vt-c-blue-val) !important;
 }
 
+.el-dropdown-menu__item:not(.is-disabled):focus{
+  color: var(--vt-c-red-menu) !important;
+  background: var(--vt-c-white-val) !important;
+}
+
 @media (min-width: 1024px) {
   body {
     place-items: center;

@@ -58,7 +58,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import BlackButton from '../components/BlackButton.vue';
 import { signIn } from "../services/auth.services"
-
+import { removeLocalStorage } from '../services/localStorage.services'
 const router = useRouter();
 const email = ref('')
 const password = ref('')
@@ -79,8 +79,7 @@ const logIn = async () => {
 };
 
 onMounted(() => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
+    removeLocalStorage()
 })
 </script>
 

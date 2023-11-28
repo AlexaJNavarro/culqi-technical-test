@@ -22,11 +22,11 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import WhiteButton from '../components/WhiteButton.vue'
+import { removeLocalStorage } from '../services/localStorage.services'
 const router = useRouter();
 
 const goOut = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
+    removeLocalStorage()
     router.push('/login');
 }
 </script>
