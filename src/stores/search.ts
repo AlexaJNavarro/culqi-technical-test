@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useEmployeesStore = defineStore('employees', {
+export const useSearchStore = defineStore('employees', {
     state: () =>({
         search: ''
     }),
