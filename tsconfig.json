@@ -11,14 +11,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    },
-    "extensions": [
-      ".ts",
-      ".tsx",
-      ".js",
-      ".jsx",
-      ".json"
-    ]
+    }
   },
   "include": [
     "src/**/*.ts",
