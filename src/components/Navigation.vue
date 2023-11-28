@@ -1,11 +1,7 @@
 <template>
     <div class="container-navigation flex h-full">
         <div class="container-navigation-left p-8">
-            <div class=" flex justify-center">
-                <img src="../assets/svg/logo2.svg">
-            </div>
-            <p>Empleados</p>
-            <p>Reclutamiento</p>
+            <ContentNavigation/>
         </div>
         <div class="container-navigation-right">
             <div class="container-navigation-right-content flex justify-end px-8">
@@ -25,8 +21,12 @@
   
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import ContentNavigation from './ContentNavigation.vue';
 export default defineComponent({
     name: 'Navigation',
+    components:{
+        ContentNavigation
+    },
     props: {
         name: String as PropType<string>,
     },
