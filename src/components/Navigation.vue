@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="container-navigation-right-body flex justify-center items-center p-6">
-                <div class="w-full">
+                <div class="w-full h-full">
                     <slot></slot>
                 </div>
             </div>

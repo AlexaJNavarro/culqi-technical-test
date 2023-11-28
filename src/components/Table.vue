@@ -110,16 +110,16 @@ let page = ref(1)
 const search = ref('')
 const options = [
   {
-    value: 3,
-    label: "Mostrar 3",
-  },
-  {
     value: 5,
     label: "Mostrar 5",
   },
   {
-    value: 8,
-    label: "Mostrar 8",
+    value: 10,
+    label: "Mostrar 10",
+  },
+  {
+    value: 15,
+    label: "Mostrar 15",
   }
 ]
 
@@ -229,6 +229,9 @@ const download = () => {
     font-size: 12px;
     line-height: 19px;
     color: var(--vt-c-blue-val);
+
+    width: 100%;
+    height: calc(100% - 215px);
     &-correo{
       font-size: 10px;
       line-height: 16px;
