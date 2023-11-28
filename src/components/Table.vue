@@ -37,17 +37,35 @@
           </div>
         </div>
         <el-table class="container-table-content font-manrope font-normal tracking-normal" :data="filterTableData" style="width: 100%">
-          <el-table-column prop="nombre" label="Nombre" width="180" />
+          <el-table-column :align="'left'">
+            <template #header>
+              <p>Nombre</p>
+            </template>
+            <template #default="scope">
+              <div class="flex flex-col">
+                <span>{{ scope.row.nombre }}</span>
+                <span class="container-table-content-correo font-normal tracking-normal">{{ scope.row.correo }}</span>
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column prop="cargo" label="Nombre cargo" width="180" />
           <el-table-column prop="departamento" label="Departamento" width="180" />
           <el-table-column prop="oficina" label="Oficina" width="180" />
           <el-table-column prop="estadoCuenta" label="Cuenta" width="180" />
-          <el-table-column align="right">
+          <el-table-column :align="'right'">
             <template #header>
               <p>Acciones</p>
             </template>
             <template #default="scope">
-              <el-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+              <el-button class="container-table-content-action visibility">
+                <i class="material-icons">visibility</i>
+              </el-button>
+              <el-button class="container-table-content-action edit">
+                <i class="material-icons">edit</i>
+              </el-button>
+              <el-button class="container-table-content-action delete">
+                <i class="material-icons">delete</i>
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -85,7 +103,7 @@ import BlackButton from '../components/BlackButton.vue'
 import WhiteButton from '../components/WhiteButton.vue'
 const total = ref(0)
 const data: Ref<IEmployees[]> = ref<IEmployees[]>([]);
-let limit = ref(8)
+let limit = ref(5)
 let page = ref(1)
 const search = ref('')
 const options = [
@@ -210,6 +228,33 @@ const download = () => {
     font-size: 12px;
     line-height: 19px;
     color: var(--vt-c-blue-val);
+    &-correo{
+      font-size: 10px;
+      line-height: 16px;
+      color: var(--vt-c-gray-val);
+    }
+    &-action{
+      width: 30px;
+      height: 30px;
+      padding: 10px;
+      border-radius: 8px;
+      i{
+        font-size: 16px;
+        color: var(--vt-c-white-val);
+      }
+    }
+    .visibility{
+      background-color: var(--vt-c-green-val);
+      border: var(--vt-c-green-val);
+    }
+    .edit{
+      background-color: var(--vt-c-light-blue-background);
+      border: var(--vt-c-light-blue-background);
+    }
+    .delete{
+      background-color: var(--vt-c-red-background);
+      border: var(--vt-c-red-background);
+    }
   }
   &-pagination-content{
     p{
