@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import BlackButton from '../components/BlackButton.vue';
 import { signIn } from "../services/auth.services"
@@ -71,12 +71,17 @@ const logIn = async () => {
     alert.value = false
 
     localStorage.setItem("token",  response.data.data.token)
-
+    localStorage.setItem("user", JSON.stringify(response.data.data.user))
     router.push('/employees');
   } catch (error) {
     alert.value = true
   }
 };
+
+onMounted(() => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+})
 </script>
 
 <style lang="scss" scoped>

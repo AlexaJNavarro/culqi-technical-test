@@ -186,10 +186,6 @@ const fetchData = async () => {
   }
 };
 
-const handleEdit = (index: number, row: any) => {
-  console.log(index, row)
-}
-
 onMounted(() => {
   fetchData();
 });
