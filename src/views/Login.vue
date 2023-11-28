@@ -55,30 +55,28 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import BlackButton from '../components/BlackButton.vue';
+import { signIn } from "../services/auth.services"
+
+const router = useRouter();
 const email = ref('')
 const password = ref('')
-let alert = ref(true)
-</script>
+let alert = ref(false)
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import BlackButton from '../components/BlackButton.vue';
+const logIn = async () => {
+  try {
+    
+    const response = await signIn(email.value, password.value)
+    alert.value = false
 
-export default defineComponent({
-  name: 'MyComponent',
-  components: {
-    BlackButton,
-  },
-  data() {
-    return {
-    };
-  },
-  methods: {
-    logIn() {
-      console.log("LOGIN ==> ")
-    },
-  },
-});
+    localStorage.setItem("token",  response.data.data.token)
+
+    router.push('/employees');
+  } catch (error) {
+    alert.value = true
+  }
+};
 </script>
 
 <style lang="scss" scoped>

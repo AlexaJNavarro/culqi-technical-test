@@ -9,12 +9,11 @@ const apiService = axios.create({
     },
 });
 
-export const getEmployees = async (token: string, limit: number, page: number) => {
+export const signIn = async (email: string, password: string) => {
     try {
-        return await apiService.get(`/empleados?limit=${limit}&page=${page}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+        return await apiService.post(`/auth/login`, {
+            correo: email,
+            password: password
         });
     } catch (error) {
         console.log("Error => ", error)

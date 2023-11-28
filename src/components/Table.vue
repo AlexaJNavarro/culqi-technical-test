@@ -95,12 +95,14 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router';
 import { Search } from '@element-plus/icons-vue'
 import {onMounted, computed, ref, Ref} from 'vue'
 import { getEmployees } from '../services/employees.services'
 import { IEmployees } from '../interfaces/employees.interfaces'
 import BlackButton from '../components/BlackButton.vue'
 import WhiteButton from '../components/WhiteButton.vue'
+const router = useRouter();
 const total = ref(0)
 const data: Ref<IEmployees[]> = ref<IEmployees[]>([]);
 let limit = ref(5)
@@ -169,15 +171,18 @@ const handleLimit = (val: number) => {
 }
 
 const fetchData = async () => {
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAxMTMyMDEzLCJleHAiOjE3MDExMzU2MTN9.20fOsEL5vw-D8a8E4FP8gpASJb5x61VcBDlXVgkklVQ";
   try {
-    const response = await getEmployees(token, limit.value, page.value);
-    data.value = response.data.data
-    total.value = response.data.total
-    console.log("data.value  => ", data.value )
+    const token = localStorage.getItem("token")
+    if(token !== null){
+      const response = await getEmployees(token, limit.value, page.value);
+      data.value = response.data.data
+      total.value = response.data.total
+    }else{
+      router.push('/login');
+    }
 
   } catch (error) {
-    console.error('Error:', error);
+    router.push('/login');
   }
 };
 
