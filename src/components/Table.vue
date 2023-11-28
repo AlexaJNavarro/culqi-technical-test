@@ -1,23 +1,6 @@
 <template>
     <div class="container-table h-full w-full p-6">
-        <div class="container-table-header flex justify-between">
-          <div class="container-table-header-title font-manrope">
-            <p class="font-bold tracking-normal">Empleados</p>
-            <p class="font-medium tracking-normal">Gestiona tus empleados</p>
-          </div>
-          <div class="container-table-header-buttons flex">
-            <div class="container-table-header-buttons-new mr-5">
-              <WhiteButton buttonText="Descargar" @clicked="download">
-                <i class="material-icons">download</i>
-              </WhiteButton>
-            </div>
-            <div class="container-table-header-buttons-download">
-              <BlackButton buttonText="Nuevo" icon="add" @clicked="newValue">
-                <i class="material-icons">add</i>
-              </BlackButton>
-            </div>
-          </div>
-        </div>
+        <HeaderTable/>
         <div class="container-table-filter flex items-center py-6">
           <el-input
             v-model="search"
@@ -100,8 +83,7 @@ import { Search } from '@element-plus/icons-vue'
 import {onMounted, computed, ref, Ref} from 'vue'
 import { getEmployees } from '../services/employees.services'
 import { IEmployees } from '../interfaces/employees.interface'
-import BlackButton from '../components/BlackButton.vue'
-import WhiteButton from '../components/WhiteButton.vue'
+import HeaderTable from '../components/HeaderTable.vue'
 const router = useRouter();
 const total = ref(0)
 const data: Ref<IEmployees[]> = ref<IEmployees[]>([]);
@@ -189,42 +171,12 @@ const fetchData = async () => {
 onMounted(() => {
   fetchData();
 });
-
-const newValue = () => {
-  console.log("new ===> ")
-}
-
-const download = () => {
-  console.log("download ===> ")
-}
 </script>
 
 <style lang="scss" scoped>
 .container-table{
   background-color: var(--vt-c-white-val);
   border-radius: 16px;
-  &-header{
-    &-title{
-      p:first-child{
-        font-size: 24px;
-        line-height: 31px;
-        color: var(--vt-c-blue-val);
-      }
-      p:last-child{
-        font-size: 14px;
-        line-height: 22px;
-        color: var(--vt-c-dark-gray-val);
-      }
-    }
-    &-buttons{
-      &-new{
-        width: 150px;
-      }
-      &-download{
-        width: 127px;
-      }
-    }
-  }
   &-content{
     font-size: 12px;
     line-height: 19px;
