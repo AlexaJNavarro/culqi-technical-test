@@ -2,11 +2,11 @@ import { defineStore } from 'pinia'
 
 export const useEmployeesStore = defineStore('employees', {
     state: () =>({
-        name: ''
+        search: ''
     }),
     actions: {
-        async setEmployeeName(value: string){
-            this.name = value;
+        async setSearch(value: string){
+            this.search = value;
         }
     }
 })

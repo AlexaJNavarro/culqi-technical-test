@@ -1,24 +1,7 @@
 <template>
     <div class="container-table h-full w-full p-6">
         <HeaderTable/>
-        <div class="container-table-filter flex items-center py-6">
-          <el-input
-            v-model="search"
-            class="w-50 m-2"
-            placeholder="Buscar empleado"
-            :suffix-icon="Search"
-          />
-          <div>
-            <el-select v-model="valueFilter" class="m-2" placeholder="Select">
-              <el-option
-                v-for="item in optionsFilter"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
-        </div>
+        
         <el-table class="container-table-content font-manrope font-normal tracking-normal" :data="filterTableData" style="width: 100%">
           <el-table-column :align="'left'">
             <template #header>
@@ -79,7 +62,6 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { Search } from '@element-plus/icons-vue'
 import {onMounted, computed, ref, Ref} from 'vue'
 import { getEmployees } from '../services/employees.services'
 import { IEmployees } from '../interfaces/employees.interface'
@@ -103,35 +85,6 @@ const options = [
     value: 15,
     label: "Mostrar 15",
   }
-]
-
-
-const valueFilter = ref({
-    value: 'cargo',
-    label: 'Nombre cargo',
-})
-
-const optionsFilter = [
-  {
-    value: 'nombre',
-    label: 'Nombre',
-  },
-  {
-    value: 'cargo',
-    label: 'Nombre cargo',
-  },
-  {
-    value: 'departamento',
-    label: 'Departamento',
-  },
-  {
-    value: 'oficina',
-    label: 'Oficina',
-  },
-  {
-    value: 'estadoCuenta',
-    label: 'Cuenta',
-  },
 ]
 
 const filterTableData = computed(() => 
