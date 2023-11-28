@@ -231,6 +231,9 @@ onMounted(() => {
 
   @media (max-width: 910px) {
     .container-table{
+      &-content{
+        height: calc(100% - 350px) !important;
+      }
       &-filter{
         flex-direction: column;
         div:first-child{
