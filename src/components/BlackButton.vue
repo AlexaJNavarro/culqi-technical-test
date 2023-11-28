@@ -1,5 +1,8 @@
 <template>
-    <button class="w-full" @click="onClick"><span class="font-bold">{{ buttonText }}</span></button>
+    <button class="w-full flex justify-center items-center" @click="onClick">
+        <slot></slot>
+        <span class="font-bold">{{ buttonText }}</span>
+    </button>
 </template>
   
 <script lang="ts">

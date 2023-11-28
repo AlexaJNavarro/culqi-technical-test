@@ -6,16 +6,25 @@
             <p class="font-medium tracking-normal">Gestiona tus empleados</p>
           </div>
           <div class="container-table-header-buttons flex">
-            <div class="container-table-header-buttons-new">
-              <WhiteButton buttonText="Descargar" @clicked="download"/>
+            <div class="container-table-header-buttons-new mr-5">
+              <WhiteButton buttonText="Descargar" @clicked="download">
+                <i class="material-icons">download</i>
+              </WhiteButton>
             </div>
-            <div class="container-table-header-buttons-download pl-5">
-              <BlackButton buttonText="Nuevo" @clicked="newValue"/>
+            <div class="container-table-header-buttons-download">
+              <BlackButton buttonText="Nuevo" icon="add" @clicked="newValue">
+                <i class="material-icons">add</i>
+              </BlackButton>
             </div>
           </div>
         </div>
-        <div class="container-table-filter flex py-6">
-          <el-input v-model="search" size="small" placeholder="Type to search" />
+        <div class="container-table-filter flex items-center py-6">
+          <el-input
+            v-model="search"
+            class="w-50 m-2"
+            placeholder="Buscar empleado"
+            :suffix-icon="Search"
+          />
           <div>
             <el-select v-model="valueFilter" class="m-2" placeholder="Select">
               <el-option
@@ -50,8 +59,8 @@
                 :total="total"
                 @current-change="handlePagination"
             />
-            <div class="flex justify-end items-center">
-                <p>Mostrando 1 a {{ data.length }} de {{ total }} registros</p>
+            <div class="flex justify-end items-center container-table-pagination-content">
+                <p class="font-manrope font-medium tracking-normal">Mostrando 1 a {{ data.length }} de {{ total }} registros</p>
                 <div class="pl-4">
                     <el-select v-model="limit" class="m-2" placeholder="Select" @change="handleLimit">
                         <el-option
@@ -68,6 +77,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Search } from '@element-plus/icons-vue'
 import {onMounted, computed, ref, Ref} from 'vue'
 import { getEmployees } from '../services/employees.services'
 import { IEmployees } from '../interfaces/employees.interfaces'
@@ -141,7 +151,7 @@ const handleLimit = (val: number) => {
 }
 
 const fetchData = async () => {
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAxMTIwMjI5LCJleHAiOjE3MDExMjM4Mjl9.2eIY4UREaYvVkDo-asIctWyMOpM9HCL8LP72T9qBzUI";
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAxMTMyMDEzLCJleHAiOjE3MDExMzU2MTN9.20fOsEL5vw-D8a8E4FP8gpASJb5x61VcBDlXVgkklVQ";
   try {
     const response = await getEmployees(token, limit.value, page.value);
     data.value = response.data.data
@@ -200,6 +210,24 @@ const download = () => {
     font-size: 12px;
     line-height: 19px;
     color: var(--vt-c-blue-val);
+  }
+  &-pagination-content{
+    p{
+      font-size: 12px;
+      line-height: 19px;
+      color: var(--vt-c-dark-gray-val);
+    }
+  }
+
+  @media (max-height: 770px) {
+    .container-table{
+      &-filter{
+        padding: 1rem 0 !important;
+      }
+      &-pagination{
+        padding-top: 1rem !important;
+      }
+    }
   }
 }
 </style>
