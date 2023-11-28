@@ -1,5 +1,6 @@
 <template>
-    <div class="container-table h-full w-full p-6">
+    <div class="h-full w-full">
+      <div class="container-table h-full w-full p-6" v-if="!loaderStore.loader">
         <HeaderTable/>
         <div class="container-table-filter flex items-center py-6">
             <el-input v-model="search" class="w-50 m-2" placeholder="Buscar empleado" :suffix-icon="Search" />
@@ -64,18 +65,24 @@
                 </div>
             </div>
         </div>
+      </div>
+      <div class="container-table h-full w-full p-6" v-if="loaderStore.loader">
+        <Loader/>
+      </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import {onMounted, computed, ref, Ref} from 'vue'
+import { Search } from '@element-plus/icons-vue'
 import { getEmployees } from '../services/employees.services'
 import { IEmployees } from '../interfaces/employees.interface'
+import { useLoaderStore } from '../stores/loader'
 import HeaderTable from '../components/HeaderTable.vue'
-
+import Loader from '../components/Loader.vue'
 const router = useRouter();
-import { Search } from '@element-plus/icons-vue'
+const loaderStore = useLoaderStore()
 
 const total = ref(0)
 const data: Ref<IEmployees[]> = ref<IEmployees[]>([]);
@@ -148,13 +155,14 @@ const fetchData = async () => {
   try {
     const token = localStorage.getItem("token")
     if(token !== null){
+      loaderStore.setLoader(true)
       const response = await getEmployees(token, limit.value, page.value);
       data.value = response.data.data
       total.value = response.data.total
+      loaderStore.setLoader(false)
     }else{
       router.push('/login');
     }
-
   } catch (error) {
     router.push('/login');
   }
@@ -217,6 +225,29 @@ onMounted(() => {
       }
       &-pagination{
         padding-top: 1rem !important;
+      }
+    }
+  }
+
+  @media (max-width: 910px) {
+    .container-table{
+      &-filter{
+        flex-direction: column;
+        div:first-child{
+          width: 100% !important; 
+        }
+        div:last-child{
+          width: 100% !important; 
+          margin: 0;
+          padding-top: 0.5em;
+        }
+      }
+      &-header{
+        flex-direction: column;
+        justify-content: left;
+      }
+      &-pagination-content p{
+        display: none;
       }
     }
   }

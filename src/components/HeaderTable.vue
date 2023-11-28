@@ -58,4 +58,13 @@ const download = () => {
     }
   }
 }
+
+@media (max-width: 910px) {
+  .container-table-header-buttons{
+    padding-top: .5rem;
+    div{
+      width: 50%;
+    }
+  }
+}
 </style>

@@ -195,3 +195,9 @@
     place-items: center;
   }
 }
+
+@media (max-width: 910px) {
+  .container-table-filter div:last-child{
+    width: 100% !important;
+  }
+}
