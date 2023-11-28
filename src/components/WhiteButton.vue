@@ -1,7 +1,7 @@
 <template>
-    <button class="w-full flex justify-center items-center" @click="onClick">
-        <slot></slot>
-        <span class="font-bold">{{ buttonText }}</span>
+    <button class="w-full flex justify-center items-center" :style="{height: height}" @click="onClick">
+        <span><slot></slot></span>
+        <span class="font-bold pl-1">{{ buttonText }}</span>
     </button>
 </template>
   
@@ -15,6 +15,11 @@ export default defineComponent({
             type: String,
             required: true,
         },
+        height: {
+            type: String,
+            required: false,
+            default: '56px'
+        }
     },
     methods: {
         onClick() {
@@ -27,7 +32,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 button{
     background: var(--vt-c-white-val);
-    height: 56px;
     border-radius: 10px;
     color: var(--vt-c-blue-val);
     border: solid 1px var(--vt-c-blue-val);

@@ -1,7 +1,7 @@
 <template>
     <button class="w-full flex justify-center items-center" @click="onClick">
-        <slot></slot>
-        <span class="font-bold">{{ buttonText }}</span>
+        <span><slot></slot></span>
+        <span class="font-bold pl-1">{{ buttonText }}</span>
     </button>
 </template>
   

@@ -7,8 +7,3 @@ export interface IEmployees {
     oficina:      string;
     estadoCuenta: string;
 }
-interface EmployeesState {
-    status: string
-    data: IEmployees[];
-    total: number;
-}

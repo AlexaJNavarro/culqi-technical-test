@@ -50,5 +50,18 @@ export default defineComponent({
             background-color: var(--vt-c-gray-background);
         }
     }
+
+    @media (max-width: 910px) {
+        &-left{
+            display: none;
+        }
+        &-right{
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 650px) {
+        
+    }
 }
 </style>

@@ -66,6 +66,10 @@
 
 .el-table th.el-table__cell{
   background-color: var(--vt-c-gray-background) !important;
+  font-size: 12px;
+  font-weight: 700 !important;
+  line-height: 19px;
+  letter-spacing: 0.20000000298023224px;
 }
 .el-table th.el-table__cell:first-child{
   border-top-left-radius: 10px;

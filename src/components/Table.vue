@@ -99,7 +99,7 @@ import { useRouter } from 'vue-router';
 import { Search } from '@element-plus/icons-vue'
 import {onMounted, computed, ref, Ref} from 'vue'
 import { getEmployees } from '../services/employees.services'
-import { IEmployees } from '../interfaces/employees.interfaces'
+import { IEmployees } from '../interfaces/employees.interface'
 import BlackButton from '../components/BlackButton.vue'
 import WhiteButton from '../components/WhiteButton.vue'
 const router = useRouter();
@@ -229,8 +229,6 @@ const download = () => {
     font-size: 12px;
     line-height: 19px;
     color: var(--vt-c-blue-val);
-
-    width: 100%;
     height: calc(100% - 215px);
     &-correo{
       font-size: 10px;

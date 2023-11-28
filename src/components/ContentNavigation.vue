@@ -14,7 +14,7 @@
             </div>
         </div>
         <div>
-            <WhiteButton buttonText="Salir" @clicked="goOut"></WhiteButton>
+            <WhiteButton buttonText="Salir" height="48px" @clicked="goOut"></WhiteButton>
         </div>
     </div>
 </template>
